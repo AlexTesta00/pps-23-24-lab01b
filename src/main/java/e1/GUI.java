@@ -24,7 +24,8 @@ public class GUI extends JFrame {
         ActionListener al = (e) -> {
             final JButton bt = (JButton) e.getSource();
             final Pair<Integer, Integer> pos = buttons.get(bt);
-            if (logics.hit(pos.getX(), pos.getY())) {
+            this.logics.hit(pos.getX(), pos.getY());
+            if (this.logics.checkWin()) {
                 System.exit(0);
             } else {
                 draw();

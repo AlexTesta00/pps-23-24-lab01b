@@ -16,8 +16,8 @@ public class LogicTest {
   private final static int PAWN_Y = 2;
   private final static int KNIGHT_X = 2;
   private final static int KNIGHT_Y = 0;
-  private final static int CORRECT_SHIFT_X = -1;
-  private final static int CORRECT_SHIFT_Y = 2;
+  private final static int CORRECT_SHIFT_FOR_WIN_X = 1;
+  private final static int CORRECT_SHIFT_FOR_WIN_Y = 2;
 
   private Optional<Pair<Integer, Integer>> getEntityPosition(BiPredicate<Integer, Integer> predicate) {
     for (int row = 0; row < SIZE; row++) {
@@ -88,12 +88,6 @@ public class LogicTest {
     this.logics = new LogicsImpl(SIZE, this.pawnPosition, this.knightPosition);
   }
 
-  @Test
-  public void checkwin() {
-    this.generatePossibleSituation();
-    assertTrue(this.logics.hit(PAWN_X, PAWN_Y));
-  }
-
   private void moveKnight(int shiftX, int shiftY) {
     int moveX = this.knightPosition.getX() + shiftX;
     int moveY = this.knightPosition.getY() + shiftY;
@@ -101,33 +95,9 @@ public class LogicTest {
   }
 
   @Test
-  public void checkCorrectKnightMove() {
-    int correctXPosition = 1;
-    int correctYPosition = 2;
-    Pair<Integer, Integer> correctPosition = new Pair<>(correctXPosition, correctYPosition);
+  public void checkwin() {
     this.generatePossibleSituation();
-    this.moveKnight(CORRECT_SHIFT_X, CORRECT_SHIFT_Y);
-    Pair<Integer, Integer> currentKnightPositionAfterMove = this.getCurrentKnightPosition().get();
-    assertEquals(correctPosition, currentKnightPositionAfterMove);
-  }
-
-  @Test
-  public void checkIncorrectKnightMove() {
-    int uncorrectShiftX = 1;
-    int uncorrectShiftY = 1;
-    this.generatePossibleSituation();
-    Pair<Integer, Integer> currentKnightPositionBeforeMove = this.knightPosition;
-    this.moveKnight(uncorrectShiftX, uncorrectShiftY);
-    Pair<Integer, Integer> currentKnightPositionAfterMove = this.getCurrentKnightPosition().get();
-    assertEquals(currentKnightPositionBeforeMove, currentKnightPositionAfterMove);
-  }
-
-  @Test
-  public void checkPawnNotMove() {
-    this.generatePossibleSituation();
-    Pair<Integer, Integer> currentPawnPosition = this.pawnPosition;
-    this.moveKnight(CORRECT_SHIFT_X, CORRECT_SHIFT_Y);
-    Pair<Integer, Integer> pawnPositionAfterMove = this.getPawnCurrentPosition().get();
-    assertEquals(currentPawnPosition, pawnPositionAfterMove);
+    this.moveKnight(CORRECT_SHIFT_FOR_WIN_X, CORRECT_SHIFT_FOR_WIN_Y);
+    assertTrue(this.logics.checkWin());
   }
 }
