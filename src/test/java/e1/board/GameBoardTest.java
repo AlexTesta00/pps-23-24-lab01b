@@ -1,19 +1,17 @@
-package e1;
+package e1.board;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import e1.board.ChessBoard;
-import e1.board.GameBoard;
+import e1.Pair;
 import e1.entity.GameEntity;
 import e1.entity.GameType;
 import e1.factory.ChessEntityFactory;

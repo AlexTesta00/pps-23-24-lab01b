@@ -1,4 +1,4 @@
-package e1;
+package e1.movment;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,24 +11,26 @@ import java.util.function.BiPredicate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import e1.Pair;
 import e1.movement.Movable;
 import e1.movement.SafetyMovableObject;
 
 
-/* TODO: Refactor this class */
 public class SafetyMovableObjectTest {
     
     
-    private final static int INIT_X = 3;
-    private final static int INIT_Y = 2;
+    private final static int INIT_X = 2;
+    private final static int INIT_Y = 0;
     private final Pair<Integer,Integer> initPosition = new Pair<Integer,Integer>(INIT_X, INIT_Y);
     private Movable movable;
 
-    private final BiPredicate<Integer, Integer> knightCriterion = (x, y) ->{
-        return (x != 0 && y != 0 && Math.abs(x) + Math.abs(y) == 3) ? true : false;
+    private final BiPredicate<Pair<Integer, Integer>, Pair<Integer, Integer>> knightCriterion = (starterPoint, arrivePoint) ->{
+        int distanceOfX = starterPoint.getX() - arrivePoint.getX();
+        int distanceOfY = starterPoint.getY() - arrivePoint.getY();
+        return (distanceOfX != 0 && distanceOfY != 0 && Math.abs(distanceOfX) + Math.abs(distanceOfY) == 3);
     };
 
-    private final BiPredicate<Integer, Integer> pawnCriterion = (x, y) ->{
+    private final BiPredicate<Pair<Integer, Integer>, Pair<Integer, Integer>> pawnCriterion = (starterPoint, arrivePoint) ->{
         return false;
     };
 
@@ -44,13 +46,13 @@ public class SafetyMovableObjectTest {
 
     @Test
     public void checkCorrectKnightMove() {
-      int correctXPosition = 1;
-      int correctYPosition = 2;
-      Pair<Integer, Integer> correctPosition = new Pair<>(correctXPosition, correctYPosition);
-      boolean resultOfMove = this.movable.move(correctPosition);
+      int correctXPositionArrive = 3;
+      int correctYPositionArrive = 2;
+      Pair<Integer, Integer> correctArrivePosition = new Pair<>(correctXPositionArrive, correctYPositionArrive);
+      boolean resultOfMove = this.movable.move(correctArrivePosition);
       Pair<Integer, Integer> currentKnightPositionAfterMove = this.movable.getCurrentPosition();
       assertAll(
-        () -> assertEquals(correctPosition, currentKnightPositionAfterMove),
+        () -> assertEquals(correctArrivePosition, currentKnightPositionAfterMove),
         () -> assertTrue(resultOfMove)
       );
     }

@@ -1,6 +1,11 @@
-package e1;
+package e1.logic;
 
 import org.junit.jupiter.api.*;
+
+import e1.Logics;
+import e1.LogicsImpl;
+import e1.Pair;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Optional;
@@ -38,7 +43,7 @@ public class LogicTest {
     int minPosition = 0;
     int maxPosition = SIZE - 1;
     return ((position.getX() >= minPosition && position.getX() <= maxPosition) &&
-        (position.getY() >= minPosition && position.getY() <= maxPosition)) ? true : false;
+        (position.getY() >= minPosition && position.getY() <= maxPosition));
   }
 
   private Optional<Pair<Integer, Integer>> getPawnCurrentPosition() {
@@ -99,4 +104,5 @@ public class LogicTest {
     this.generatePossibleSituation();
     assertTrue(this.moveKnight(CORRECT_SHIFT_FOR_WIN_X, CORRECT_SHIFT_FOR_WIN_Y));
   }
+  
 }

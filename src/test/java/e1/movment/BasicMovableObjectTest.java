@@ -1,10 +1,11 @@
-package e1;
+package e1.movment;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import e1.Pair;
 import e1.movement.BasicMovableObject;
 import e1.movement.Movable;
 

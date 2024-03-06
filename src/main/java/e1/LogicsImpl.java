@@ -1,59 +1,58 @@
 package e1;
 
-import e1.movement.RandomizePositionGenerator;
-import e1.movement.SafetyPositionRandomizer;
+import e1.board.GameBoard;
+import e1.entity.GameType;
+import e1.factory.BoardFactory;
+import e1.factory.ChessBoardFactory;
 
 public class LogicsImpl implements Logics {
 
-	private final RandomizePositionGenerator randomizePositionGenerator = new SafetyPositionRandomizer();
-	private final Pair<Integer, Integer> pawn;
-	private Pair<Integer, Integer> knight;
-	private final int size;
+	private final BoardFactory boardFactory;
+	public final GameBoard chessBoard;
 
 	public LogicsImpl(int size) {
-		this.size = size;
-		this.pawn = this.randomizePositionGenerator.getRandomPosition(size);
-		this.knight = this.randomizePositionGenerator.getRandomPosition(size);
+		this.boardFactory = new ChessBoardFactory();
+		this.chessBoard = this.boardFactory.createBoardWithKnightAndPawnInRandomStartPosition(size);
 	}
 
 	//Only for test
 	public LogicsImpl(int size, Pair<Integer, Integer> pawnPosition, Pair<Integer, Integer> knightPosition){
-		this.size = size;
-		this.pawn = pawnPosition;
-		this.knight = knightPosition;
+		this.boardFactory = new ChessBoardFactory();
+		this.chessBoard = this.boardFactory.createBoardWithKnightAndPawn(size, pawnPosition, knightPosition);
 	}
 
+	public boolean checkWin(){
+		Pair<Integer, Integer> pawnPosition = this.chessBoard.getEntityByType(GameType.PAWN).stream().findFirst().get().getCurrentPosition();
+		return (this.getCurrentKnightPosition().equals(pawnPosition));
+	}
 
-	private boolean canMove(int row, int col){
-		int x = row - this.knight.getX();
-		int y = col - this.knight.getY();
-		return (x != 0 && y != 0 && Math.abs(x) + Math.abs(y) == 3) ? true : false;
-	};
+	private Pair<Integer, Integer> getCurrentKnightPosition(){
+		return this.chessBoard.getEntityByType(GameType.KNIGHT).stream().findFirst().get().getCurrentPosition();
+	}
+
+	private Pair<Integer, Integer> getCurrentPawnPosition(){
+		return this.chessBoard.getEntityByType(GameType.PAWN).stream().findFirst().get().getCurrentPosition();
+	}
 	
 	@Override
 	public boolean hit(int row, int col) {
-		if (row < 0 || col < 0 || row >= this.size || col >= this.size) {
-			throw new IndexOutOfBoundsException();
-		}
-		// Below a compact way to express allowed moves for the knight
-		if (this.canMove(row, col)) {
-			this.knight = new Pair<>(row, col);
-			return this.pawn.equals(this.knight);
-		}
-
-		return false;
+		Pair<Integer, Integer> positionToMove = new Pair<Integer,Integer>(row, col);
+		this.chessBoard.moveEntityToPosition(this.getCurrentKnightPosition(), positionToMove);
+		return this.checkWin();
 	}
 
 
 
 	@Override
 	public boolean hasKnight(int row, int col) {
-		return this.knight.equals(new Pair<>(row, col));
+		Pair<Integer, Integer> checkPosition = new Pair<Integer,Integer>(row, col);
+		return this.getCurrentKnightPosition().equals(checkPosition);
 	}
 
 	@Override
 	public boolean hasPawn(int row, int col) {
-		return this.pawn.equals(new Pair<>(row, col));
+		Pair<Integer, Integer> checkPosition = new Pair<Integer,Integer>(row, col);
+		return this.getCurrentPawnPosition().equals(checkPosition);
 	}
 
 }

@@ -9,12 +9,14 @@ import e1.entity.GameType;
 
 public class ChessEntityFactory implements GameEntityFactory{
 
-    private final BiPredicate<Integer, Integer> pawnCriterion = (x, y) ->{
-        return false;
+    private final BiPredicate<Pair<Integer, Integer>, Pair<Integer, Integer>> knightCriterion = (starterPoint, arrivePoint) ->{
+        int distanceOfX = starterPoint.getX() - arrivePoint.getX();
+        int distanceOfY = starterPoint.getY() - arrivePoint.getY();
+        return (distanceOfX != 0 && distanceOfY != 0 && Math.abs(distanceOfX) + Math.abs(distanceOfY) == 3);
     };
 
-    private final BiPredicate<Integer, Integer> knightCriterion = (x, y) ->{
-        return (x != 0 && y != 0 && Math.abs(x) + Math.abs(y) == 3) ? true : false;
+    private final BiPredicate<Pair<Integer, Integer>, Pair<Integer, Integer>> pawnCriterion = (starterPoint, arrivePoint) ->{
+        return false;
     };
 
     @Override

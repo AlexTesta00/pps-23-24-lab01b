@@ -10,7 +10,7 @@ public class ChessEntity implements GameEntity{
     private final SafetyMovableObject movable;
     private final GameType type;
 
-    public ChessEntity(Pair<Integer, Integer> initPosition, BiPredicate<Integer, Integer> movementLogics, GameType type){
+    public ChessEntity(Pair<Integer, Integer> initPosition, BiPredicate<Pair<Integer,Integer>, Pair<Integer,Integer>> movementLogics, GameType type){
         this.movable = new SafetyMovableObject(initPosition, movementLogics);
         this.type = type;
     }

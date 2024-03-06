@@ -70,6 +70,9 @@ public class ChessBoard implements GameBoard {
 	@Override
 	public boolean moveEntityToPosition(Pair<Integer, Integer> knight, Pair<Integer, Integer> moveToPosition) {
         Optional<GameEntity> entity = this.getEntityByCoordinates(knight);
+        if(!(this.checkXAxesInRange(moveToPosition) && this.checkYAxesInRange(moveToPosition))){
+            throw new IndexOutOfBoundsException();
+        }
         if(entity.isPresent()){
             return entity.get().move(moveToPosition);
         }
