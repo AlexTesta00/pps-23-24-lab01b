@@ -1,4 +1,6 @@
-package e1;
+package e1.movement;
+
+import e1.Pair;
 
 public class BasicMovableObject implements Movable{
 

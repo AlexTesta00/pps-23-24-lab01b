@@ -1,6 +1,8 @@
-package e1;
+package e1.movement;
 
 import java.util.function.BiPredicate;
+
+import e1.Pair;
 
 public class SafetyMovableObject implements Movable{
 

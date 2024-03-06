@@ -1,5 +1,7 @@
 package e1;
 
+import e1.movement.RandomizePositionGenerator;
+import e1.movement.SafetyPositionRandomizer;
 
 public class LogicsImpl implements Logics {
 
@@ -29,14 +31,17 @@ public class LogicsImpl implements Logics {
 	};
 	
 	@Override
-	public void hit(int row, int col) {
+	public boolean hit(int row, int col) {
 		if (row < 0 || col < 0 || row >= this.size || col >= this.size) {
 			throw new IndexOutOfBoundsException();
 		}
 		// Below a compact way to express allowed moves for the knight
 		if (this.canMove(row, col)) {
 			this.knight = new Pair<>(row, col);
+			return this.pawn.equals(this.knight);
 		}
+
+		return false;
 	}
 
 
@@ -50,11 +55,5 @@ public class LogicsImpl implements Logics {
 	public boolean hasPawn(int row, int col) {
 		return this.pawn.equals(new Pair<>(row, col));
 	}
-
-	@Override
-	public boolean checkWin() {
-		return this.pawn.equals(this.knight);
-	}
-
 
 }

@@ -9,7 +9,7 @@ public interface Logics{
      * @param col
      * @return whether the pawn has been hit 
      */
-    void hit(int row, int col);
+    boolean hit(int row, int col);
     
     /**
      * @param row
@@ -24,6 +24,4 @@ public interface Logics{
      * @return whether position row,col has the pawn
      */
     boolean hasPawn(int row, int col);
-
-    boolean checkWin();
 }

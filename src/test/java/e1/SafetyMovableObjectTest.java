@@ -11,6 +11,9 @@ import java.util.function.BiPredicate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import e1.movement.Movable;
+import e1.movement.SafetyMovableObject;
+
 
 /* TODO: Refactor this class */
 public class SafetyMovableObjectTest {

@@ -88,16 +88,15 @@ public class LogicTest {
     this.logics = new LogicsImpl(SIZE, this.pawnPosition, this.knightPosition);
   }
 
-  private void moveKnight(int shiftX, int shiftY) {
+  private boolean moveKnight(int shiftX, int shiftY) {
     int moveX = this.knightPosition.getX() + shiftX;
     int moveY = this.knightPosition.getY() + shiftY;
-    this.logics.hit(moveX, moveY);
+    return this.logics.hit(moveX, moveY);
   }
 
   @Test
   public void checkwin() {
     this.generatePossibleSituation();
-    this.moveKnight(CORRECT_SHIFT_FOR_WIN_X, CORRECT_SHIFT_FOR_WIN_Y);
-    assertTrue(this.logics.checkWin());
+    assertTrue(this.moveKnight(CORRECT_SHIFT_FOR_WIN_X, CORRECT_SHIFT_FOR_WIN_Y));
   }
 }

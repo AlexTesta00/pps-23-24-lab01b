@@ -1,6 +1,8 @@
-package e1;
+package e1.movement;
 
 import java.util.Random;
+
+import e1.Pair;
 
 public class BasicPositionRandomizer implements RandomizePositionGenerator{
 
