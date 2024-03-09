@@ -89,9 +89,9 @@ public class GameBoardTest {
 
     @Test
     public void moveEntity(){
-        int startX = 3;
-        int startY = 2;
-        Pair<Integer, Integer> moveToPosition = new Pair<Integer,Integer>(1, 2);
+        int startX = 2;
+        int startY = 0;
+        Pair<Integer, Integer> moveToPosition = new Pair<Integer,Integer>(3, 2);
         GameEntity knight = this.populateBoardWithKnight(startX, startY);
         assertTrue(this.chessBoard.moveEntityToPosition(knight.getCurrentPosition(), moveToPosition));
     }
